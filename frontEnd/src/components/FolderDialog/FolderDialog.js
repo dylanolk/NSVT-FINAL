@@ -21,7 +21,7 @@ const FolderDialog = () => {
       method: "POST",
       body: formData,
       headers: {
-        "cotent-type": "base64",
+        "content-type": "base64",
       },
     });
     const resData = await response.json();

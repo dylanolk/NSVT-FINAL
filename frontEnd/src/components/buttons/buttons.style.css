@@ -1,0 +1,11 @@
+.subButton {
+  margin-top: 5px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+}
+
+.subButton:hover {
+  background-color: rgb(0, 255, 42);
+  color: white;
+  transition: 0.5s;
+}

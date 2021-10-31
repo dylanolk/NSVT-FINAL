@@ -1,0 +1,11 @@
+nav {
+  margin-left: 40px;
+
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+p {
+  color: rgb(0, 0, 0);
+  margin-left: 30px;
+  margin-right: 30px;
+}

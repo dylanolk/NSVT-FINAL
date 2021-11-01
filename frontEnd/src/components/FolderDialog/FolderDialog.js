@@ -17,19 +17,20 @@ const FolderDialog = () => {
   const postSelectedFile = async () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
-    const response = await fetch("http://127.0.0.1:5000/process", {
-      method: "POST",
-      body: formData,
-      headers: {
-        "content-type": "base64",
-      },
-    });
-    const resData = await response.json();
-    console.log(resData, "line 28");
-    console.log(resData, "this is the response Data");
-    // } catch (error) {
-    //   console.log(error, "you messed something up");
-    // }
+    try {
+      const response = await fetch("http://127.0.0.1:5000/process", {
+        mode: "no-cors",
+        method: "POST",
+        body: formData,
+        // headers: {
+        //   "content-type": "multipart/form-data",
+        // },
+      });
+      const resData = await response;
+      console.log(resData, "line 28");
+    } catch (error) {
+      console.log(error, "you messed something up");
+    }
   };
 
   return (

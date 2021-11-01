@@ -6,30 +6,31 @@ import base64
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def index():
     return render_template("home.html")
 
 
-@app.route("/process", methods = ['POST','GET'])
+@app.route("/process", methods=['POST', 'GET'])
 def process():
-	print("here")
-	print(request.files)
-	if 'file' in request.files:
-		print('true')
-		sampFreq, sound = wavfile.read(request.files['file'])
-		print(sampFreq, sound)
-		print(len(sound))
+    print("here")
+    print(request.files)
+    if 'file' in request.files:
+        print('true')
+        sampFreq, sound = wavfile.read(request.files['file'])
+        print(sampFreq, sound)
 
-		bytes_wav = bytes()
-		byte_io = BytesIO(bytes_wav)
-		wavfile.write(byte_io, sampFreq, sound)
-		wav_bytes = byte_io.read()
-		audio_data = base64.b64encode(wav_bytes).decode('UTF-8')
+        print(len(sound))
 
-		return render_template("home.html", value = audio_data, arr = sound)
-	else:
-		print('false')
+        bytes_wav = bytes()
+        byte_io = BytesIO(bytes_wav)
+        wavfile.write(byte_io, sampFreq, sound)
+        wav_bytes = byte_io.read()
+        audio_data = base64.b64encode(wav_bytes).decode('UTF-8')
+        resp = requests.post(json={data: audio_data}, timeout=2.50)
+        print(resp.status_code)
+    else:
+        print('false')
 
-
-	return render_template("home.html")
+    return render_template("home.html")

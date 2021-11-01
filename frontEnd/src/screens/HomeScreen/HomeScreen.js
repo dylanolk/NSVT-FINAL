@@ -9,14 +9,16 @@ import HomeScreenText from "../../components/text/HomeScreenText";
 function HomeScreen() {
   const getData = async () => {
     const response = await fetch("http://127.0.0.1:5000/", {
+      mode: "no-cors",
       method: "GET",
     });
-    const resData = await response.json();
+    const resData = await response;
     console.log(resData, "damnn");
   };
 
   useEffect(() => {
     getData();
+    console.log("hi");
   }, []);
 
   return (

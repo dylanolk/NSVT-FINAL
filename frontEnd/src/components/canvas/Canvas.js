@@ -5,7 +5,7 @@ class Canvas extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
-			ARR_NUM : this.props.data[1].length-4, 
+			ARR_NUM : 1, 
 			MOUSE_POS: 0,
 			SCALE_FACTOR: 1,
 		};
@@ -44,7 +44,11 @@ class Canvas extends React.Component {
 		c.lineTo(1920, 250)
 		c.stroke();
 		
-		for(var i = 1; i<data.length; i++){
+		for(var i = 1; i<3; i++){
+			var change=1;
+			if (i==2)
+				change= this.props.data[3]
+			console.log(change);
 			var x_coordinate=0;
 			c.beginPath();
 			var lines=0;
@@ -57,17 +61,17 @@ class Canvas extends React.Component {
 				if(SCALE_FACTOR>1){
 					var y = this.getMax(x,i,data)
 						
-							c.moveTo(x_coordinate,(0-y[2])/data[0][0]+250) 
-							c.lineTo(x_coordinate, (0-y[1])/data[0][0]+250)
+							c.moveTo(x_coordinate*change,(0-y[2])/data[0][0]+250) 
+							c.lineTo(x_coordinate*change, (0-y[1])/data[0][0]+250)
 				}
 				else if (SCALE_FACTOR<0) {
-					c.moveTo(x_coordinate*Math.abs(SCALE_FACTOR), 250) 
-					c.lineTo(x_coordinate*Math.abs(SCALE_FACTOR), (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250)
+					c.moveTo(x_coordinate*Math.abs(SCALE_FACTOR)*change, 250) 
+					c.lineTo(x_coordinate*Math.abs(SCALE_FACTOR)*change, (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250)
 					var y=[x,0,0]
 				}
 				else{
-					c.moveTo(x_coordinate, 250) 
-					c.lineTo(x_coordinate, (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250)
+					c.moveTo(x_coordinate*change, 250) 
+					c.lineTo(x_coordinate*change, (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250)
 					var y=[x,0,0]
 				}
 

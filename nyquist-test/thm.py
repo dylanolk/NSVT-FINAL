@@ -1,22 +1,23 @@
 import matplotlib.pyplot as plt
+from math import sqrt, ceil
 import numpy as np
 import os
+from scipy import nanmean
 from scipy.io import wavfile
 from scipy.fft import *
 from scipy.signal import resample
 
 
-def generate_signal(length_seconds, sampling_rate, frequencies_list, func="sin", add_noise=0, plot=True):
+def generate_signal(len_sec, sampling_rate, frequencies_list, func="sin", add_noise=0, plot=False):
     
     frequencies_list = np.array(frequencies_list, dtype=object)
-    assert len(frequencies_list.shape) == 1 or len(frequencies_list.shape) == 2, "frequencies_list must be 1d or 2d python list"
-    
+
     expanded = False
     if isinstance(frequencies_list[0], int):
         frequencies_list = np.expand_dims(frequencies_list, axis=0)
         expanded = True
         
-    npnts = sampling_rate*length_seconds  # number of time samples
+    npnts = sampling_rate*len_sec  # number of time samples
     time = np.arange(0, npnts)/sampling_rate
     signal = np.zeros((frequencies_list.shape[0],npnts))
     
@@ -68,12 +69,95 @@ def freq(file):
     return freq
 
 
-def downsample(data, sampling_rate, new_rate = 0):
+def simple_downsample(data, downsample_factor = 1):
+    pad_size = ceil(float(data.size)/downsample_factor)*downsample_factor - data.size
+    data_pad = np.append(data, np.zeros(pad_size)*np.NaN)
+    interp = nanmean(data_pad.reshape(-1,downsample_factor), axis=1)
+    return interp
 
-    if new_rate <= 0:
-        sampling_rate/2 
 
-    number_of_samples = round(len(data) * float(new_rate) / sampling_rate)
-    data2 = sps.resample(data, number_of_samples)
-    return data2
+#from stack overflow
+def is_prime(n):
+    if n == 2:
+        return True
+    if n % 2 == 0 or n <= 1:
+        return False
 
+    sqr = int(sqrt(n)) + 1
+
+    for d in range(3, sqr, 2):
+        if n % d == 0:
+            return False
+        
+    return True
+
+def fft_(data, rfft_use = False):
+    N = len(data)
+    y = data
+    
+    # efficiency check
+    if is_prime(N):
+        N.append(0)
+    
+    if rfft_use:
+        Y_k_pos = np.abs(np.fft.rfft(y))/N
+    else:
+        # has real negative imagin -> squash to only quad 1
+        Y_k = np.fft.fft(y)[0:int(N/2)]/N # FFT + norm
+        Y_k[1:] = 2*Y_k[1:] # single-sided spectrum only
+        Y_k_pos = np.abs(Y_k) # only real part
+    
+    return Y_k_pos
+
+def fft_filter(data, threshold_pre = 99):
+    threshold = np.percentile(data, threshold_pre)
+    threshold_indices = data < threshold
+    data[threshold_indices] = 0
+    
+    return data
+
+def find_ny(fdata):
+    min_sample_rate = np.max(np.nonzero(fdata))*2+1
+    return min_sample_rate
+
+def resample_(data, duration, new_rate = -1):
+    #print(new_rate, type(new_rate))
+    return resample(data, int(new_rate*duration))
+
+def ifft_(fdata):
+    return np.fft.ifft(fdata)
+
+def resample_summary(data, original_rate, new_rate = 0, threshold = 99):
+    
+    duration = len(data)/original_rate
+    
+    def channel_summary(c):
+        ret = {}
+        ret["fdata"] = fft_(c)
+        ret["ffdata"] = fft_filter(ret["fdata"], threshold)
+        ret["ny_rate"] = find_ny(ret["ffdata"])
+        ret["ifftdata"] = ifft_(ret["fdata"])
+        
+        if new_rate == 0:
+            new_data = resample_(data, duration, ret["ny_rate"])
+        else:
+            new_data = resample_(data, duration, new_rate)
+        ret["data"] = new_data
+        return ret
+        
+        
+    channels = []
+    if type(data[0]) == list:
+        x,y = map(list, zip(*data))
+        channels = [x,y]
+    else:
+        channels = [data]
+        
+    resampled_channels = [] 
+    for each in channels:
+        resampled_channels.append(channel_summary(each))
+    
+    return resampled_channels
+           
+    
+    

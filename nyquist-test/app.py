@@ -52,9 +52,12 @@ def process():
 		#wavfile.write(byte_io, sampFreq, sound)
 		if sound.ndim > 1 :
 			sound= sound[1:, 0]
-			print("AHHHHHH")
-		aa = resample_summary(sound[1:], sampFreq)
-		print("Boogers!")
+			print("test1")
+		sound=sound[1:100000]
+		print("test2")
+		aa = resample_summary(sound, sampFreq)
+		print("test")
+		
 	
 
 		if len(aa) == 1:
@@ -84,7 +87,7 @@ def process():
 		while len(newsound[len(newsound)-1])> 2:
 			newsound.append(compress(newsound[len(newsound)-1],20))		
 		
-		return str([[[pow(8,wave_file.getsampwidth())]], sound, newsound, change ])
+		return str([[[pow(8,wave_file.getsampwidth())]], sound, newsound, change])
 		
 	else:
 		print('false')

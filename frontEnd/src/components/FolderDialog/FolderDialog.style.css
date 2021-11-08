@@ -1,0 +1,8 @@
+.cards {
+  padding-top: 25px;
+  padding-bottom: 50px;
+  justify-content: center;
+  transition: 0.3s;
+  width: 250px;
+  height: 200px;
+}

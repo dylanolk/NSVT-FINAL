@@ -4,7 +4,7 @@ import "./header.style.css";
 function Header() {
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/">
         <p>Nyquist Shannon Theorem Visualizer</p>
       </a>
       <button
@@ -21,15 +21,15 @@ function Header() {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/about">
               <p>
                 About The Theorem <span class="sr-only">(current)</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <p>Contact Us</p>
+            <a class="nav-link" href="/wavlibrary">
+              <p>Wav Library</p>
             </a>
           </li>
         </ul>

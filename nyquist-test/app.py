@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from flask import Flask, render_template, request, make_response, url_for, redirect
-=======
 from flask import Flask, render_template, request, make_response, url_for, send_file
->>>>>>> 9ffd43c01f325bac2fc568430a8f0a77c9c3435b
 from scipy.io import wavfile
 from thm import *
 from io import StringIO, BytesIO
@@ -52,19 +48,6 @@ def process():
 
 		bytes_wav = bytes()
 		byte_io = BytesIO(bytes_wav)
-<<<<<<< HEAD
-
-		#wavfile.write(byte_io, sampFreq, sound)
-
-		newsound = resample_(sound)
-		print(newsound[1])
-
-		wavfile.write(byte_io, newsound[1], newsound[0])
-
-		wav_bytes = byte_io.read()
-		audio_data = base64.b64encode(wav_bytes).decode('UTF-8')
-=======
->>>>>>> 9ffd43c01f325bac2fc568430a8f0a77c9c3435b
 
 		#wavfile.write(byte_io, sampFreq, sound)
 		if sound.ndim > 1 :

@@ -8,14 +8,22 @@ class Canvas extends React.Component {
 			ARR_NUM : 1, 
 			MOUSE_POS: 0,
 			SCALE_FACTOR: 1,
+			DISPLAY_TRANSFORM: 3, 
+			DISPLAY_ORIGINAL: 1,
+			checked1:true,
+			checked2:true,
+			SHIFT: 0,
+			
 		};
 		this.getMax=this.getMax.bind(this);
 		this.display=this.display.bind(this);
 		this.wheelZoom=this.wheelZoom.bind(this);
 		this.mouseMove=this.mouseMove.bind(this);
+		this.displayTransform= this.displayTransform.bind(this);
+		this.displayOriginal = this.displayOriginal.bind(this);
 	}
 
-
+//Takes in current position in array, array number, and data. Returns local max and mins within a window of size SCALE_FACTOR
 	getMax(x,arraynum,data){
 
 		var max=[x,0,0] 
@@ -31,7 +39,7 @@ class Canvas extends React.Component {
 		return max
 	}
 
-
+//Main display function, called on every zoom/ update. Should not be called when there is no data. 
 	display(){
 		var canvas=this.refs.canvas;
 		var c=canvas.getContext('2d');
@@ -44,25 +52,25 @@ class Canvas extends React.Component {
 		c.lineTo(1920, 250)
 		c.stroke();
 		
-		for(var i = 1; i<3; i++){
+		for(var i = this.state.DISPLAY_ORIGINAL; i<this.state.DISPLAY_TRANSFORM; i++){
 			var change=1;
 			if (i==2)
 				change= this.props.data[3]
-			console.log(change);
+			// console.log(change);
 			var x_coordinate=0;
 			c.beginPath();
 			var lines=0;
 			var max=0;
 			
-			for(var x = 0; x<data[i][this.state.ARR_NUM].length; x++){
+			for(var x = Math.floor(this.state.SHIFT/Math.pow(10,this.state.ARR_NUM)/change); x<data[i][this.state.ARR_NUM].length; x++){
 				
 				if(lines>=1920) break;
 
 				if(SCALE_FACTOR>1){
 					var y = this.getMax(x,i,data)
 						
-							c.moveTo(x_coordinate*change,(0-y[2])/data[0][0]+250) 
-							c.lineTo(x_coordinate*change, (0-y[1])/data[0][0]+250)
+							c.moveTo(Math.floor(x_coordinate*change),(0-y[2])/data[0][0]+250) 
+							c.lineTo(Math.floor(x_coordinate*change), (0-y[1])/data[0][0]+250)
 				}
 				else if (SCALE_FACTOR<0) {
 					c.moveTo(x_coordinate*Math.abs(SCALE_FACTOR)*change, 250) 
@@ -91,29 +99,37 @@ class Canvas extends React.Component {
 		// console.log(lines);
 			
 	}
+	
 	wheelZoom(event){
 		event.preventDefault();
-
-		this.state.SCALE_FACTOR= this.state.SCALE_FACTOR+=Math.floor(event.deltaY/102);
 		
+		if(event.ctrlKey){
+			this.state.SCALE_FACTOR= this.state.SCALE_FACTOR+=Math.floor(event.deltaY/102);
+			if(this.state.SCALE_FACTOR > 19 && this.state.ARR_NUM<this.props.data.length){
+				this.state.SCALE_FACTOR=2;
+				this.state.ARR_NUM++;
+			}
+			else if(this.state.SCALE_FACTOR <= 1 && this.state.ARR_NUM>=1){
+				this.state.SCALE_FACTOR=19;
+				this.state.ARR_NUM--;
+			}
+			console.log(this.state.SCALE_FACTOR, this.state.ARR_NUM);
+		}
 		
-	
-		if(this.state.SCALE_FACTOR > 19 && this.state.ARR_NUM<this.props.data.length){
-			this.state.SCALE_FACTOR=2;
-			this.state.ARR_NUM++;
+		else{
+			this.state.SHIFT+=Math.floor(event.deltaY/102)*500;
 		}
-		else if(this.state.SCALE_FACTOR <= 1 && this.state.ARR_NUM>=1){
-			this.state.SCALE_FACTOR=19;
-			this.state.ARR_NUM--;
-		}
-		console.log(this.state.SCALE_FACTOR, this.state.ARR_NUM);
+		
 		this.display();
 	}
+	
+	//Stores current mouse position, useful for centering zoom on mouse, not yet implemented. 
 	mouseMove(event){
 		var canvas=this.refs.canvas;
 		var cRect = canvas.getBoundingClientRect();
 		this.state.MOUSE_POS = Math.round(event.clientX - cRect.left);
 	}
+	
 	componentDidMount(){
 		const canvas= this.refs.canvas;
 		const c= canvas.getContext("2d")
@@ -127,6 +143,7 @@ class Canvas extends React.Component {
 		c.stroke()
 		
 	}
+	
    componentDidUpdate() {
 	   console.log("update");
 	   const canvas= this.refs.canvas;
@@ -136,6 +153,26 @@ class Canvas extends React.Component {
 			this.display();
 		
 	}
+	
+	displayTransform(event){
+		if(event.target.checked){
+			this.setState({DISPLAY_TRANSFORM: 3})
+		}
+		else
+			this.setState({DISPLAY_TRANSFORM: 2})
+		this.display();
+		this.setState({checked1: event.target.checked})
+	}
+	
+	displayOriginal(event){
+		if(event.target.checked)
+			this.setState({DISPLAY_ORIGINAL: 1})
+		else
+			this.setState({DISPLAY_ORIGINAL: 2})
+		this.display();
+		this.setState({checked2: event.target.checked})
+	}
+	
   render(){
 	  console.log("rendered");
 	const styles={
@@ -143,14 +180,16 @@ class Canvas extends React.Component {
 		
 	};
 	return (
-	 <div
-		style={{
-       
-       
-    }}>
-	
+	 <div>
 		<canvas ref="canvas" width={1920} height={500} style={styles}/>
+		<form onSubmit={this.handleSubmit}> 
+          <input type="checkbox" checked={this.state.checked1} onChange={this.displayTransform}/>
+			{"Display Downsampled Waveform"}
+			 <input type="checkbox" checked={this.state.checked2} onChange={this.displayOriginal}/>
+			{"Display Original Waveform"}
+		</form>
 	</div>
+
 	);
   }
 };

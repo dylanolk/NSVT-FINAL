@@ -17,7 +17,14 @@
 <br>
 <br>
 
-<audio controls src="data:audio/wav;base64, {{ value }}"></audio>
+{% if value is defined %}
+    <audio controls src="data:audio/wav;base64, {{ value[2:vlen] }}"></audio>
+{% else %}
+    
+{% endif %}
+
+
+
 
 <br> 
 <br>

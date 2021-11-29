@@ -46,8 +46,16 @@ def process():
 		print(sampFreq, sound)
 		print(len(sound))
 
-		bytes_wav = bytes()
-		byte_io = BytesIO(bytes_wav)
+		def create_aud_buf(audio, freq):
+			bytes_wav = bytes()
+			byte_io = BytesIO(bytes_wav)
+			wavfile.write(byte_io, freq, audio)
+			wav_bytes = byte_io.read()
+			
+			audio_data = base64.b64encode(wav_bytes)
+			return audio_data
+
+		audio_data = create_aud_buf(sound, sampFreq)
 
 		#wavfile.write(byte_io, sampFreq, sound)
 		if sound.ndim > 1 :
@@ -67,16 +75,37 @@ def process():
 			# newsound = np.stack((aa[1]["data"],aa[0]["data"]), axis = 1)
 			# newsound = np.asarray(newsound)
 		
+
 		change=sampFreq/aa[0]["ny_rate"]
-		# print(newsound)
 
-		# wavfile.write(byte_io, newsound[1], newsound[0])
 
-		# wav_bytes = byte_io.read()
-		# audio_data = base64.b64encode(wav_bytes).decode('UTF-8')
 		wave_file=wave.open(request.files['file'], mode='rb')
 		sound=[sound.tolist()]
 		newsound=[newsound.tolist()]
+
+		print("===")
+		print(type(sound))
+		print(type(newsound))
+		print("===")
+		#audio_data2 = create_aud_buf(newsound, int(aa[0]["ny_rate"]))
+		# print("===")
+		# print(type(newsound))
+		# print(type(aa[0]["ny_rate"]))
+		# print("===")
+
+
+
+		'''
+
+		data: [[]]
+
+
+		data
+			data [[]]
+			payload ...
+			
+		'''
+
 		print(len(newsound[0]))
 		print(len(sound[0]))
 		
@@ -86,8 +115,19 @@ def process():
 		
 		while len(newsound[len(newsound)-1])> 2:
 			newsound.append(compress(newsound[len(newsound)-1],20))		
+
+		data = str([[[pow(8,wave_file.getsampwidth())]], sound, newsound, change])
+
+
+
+		response = make_response({"payload": str(audio_data), "data": data}, 200)
 		
-		return str([[[pow(8,wave_file.getsampwidth())]], sound, newsound, change])
+		audio_transf = str(audio_data)
+		# print(audio_transf)
+		# print(type(audio_transf))
+
+		#return render_template("home.html", value = audio_transf, vlen = len(audio_transf) -1 )
+		return response
 		
 	else:
 		print('false')

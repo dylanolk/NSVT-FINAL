@@ -1,11 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
 nav {
-  margin-left: 40px;
+  font-family: "Montserrat";
+  align-items: center;
 
+  margin-left: 40px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  width: 1400px;
 }
 p {
-  color: rgb(0, 0, 0);
+  color: lightcyan;
   margin-left: 30px;
   margin-right: 30px;
 }

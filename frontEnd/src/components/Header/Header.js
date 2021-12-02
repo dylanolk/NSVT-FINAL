@@ -3,7 +3,7 @@ import "./header.style.css";
 
 function Header() {
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
       <a class="navbar-brand" href="/">
         <p>Nyquist Shannon Theorem Visualizer</p>
       </a>

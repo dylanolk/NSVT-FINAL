@@ -7,16 +7,12 @@ const WavLibrary = () => {
   return (
     <div class="centered">
       <h1>Sample Library</h1>
-
-      <p>
-        <div class="centertext">
-          This is a little library of sample .wav files.
-        </div>
-      </p>
-
+      <div class="center-text">
+        <p>This is a little library of sample .wav files</p>
+      </div>
       <div class="row">
         <div class="column">
-          <div class="card">
+          <div class="card bg-dark mb-3">
             <h3>Cantina</h3>
             <audio
               type="audio/mpeg"
@@ -31,7 +27,7 @@ const WavLibrary = () => {
           </div>
         </div>
         <div class="column">
-          <div class="card">
+          <div class="card bg-dark mb-3">
             <h3>Star Wars </h3>
             <audio
               type="audio/mpeg"
@@ -46,7 +42,7 @@ const WavLibrary = () => {
           </div>
         </div>
         <div class="column">
-          <div class="card">
+          <div class="card bg-dark mb-3">
             <h3>Taunt</h3>
             <audio
               type="audio/mpeg"

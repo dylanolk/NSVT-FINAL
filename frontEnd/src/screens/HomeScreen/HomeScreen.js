@@ -5,9 +5,9 @@ import FolderDialog from "../../components/FolderDialog/FolderDialog";
 import Canvas from "../../components/canvas/Canvas";
 import Footer from "../../components/footer/Footer";
 import Button from "../../components/buttons/Button";
-import ShowChooseFolder from "../../components/ShowChooseFolder";
-import ShowCanvas from "../../components/ShowCanvas";
+
 import HomeScreenText from "../../components/text/HomeScreenText";
+import PlayAudio from "../../components/wavplayer/PlayAudio";
 import axios from "axios";
 
 class HomeScreen extends React.Component {
@@ -29,9 +29,11 @@ class HomeScreen extends React.Component {
     super(props);
     this.state = {
       arrays: [],
+      audio: "",
     };
 
     this.changeArrays = this.changeArrays.bind(this);
+    this.changeAudio = this.changeAudio.bind(this);
   }
 
   // constructor(props){
@@ -47,23 +49,30 @@ class HomeScreen extends React.Component {
     console.log(this.state.arrays);
   }
 
+  changeAudio(newAudio) {
+    this.setState({ audio: newAudio });
+    console.log(this.state.audio);
+  }
+
   render() {
     return (
       <body>
         {/* <Header /> */}
         {/* <HomeScreenText /> */}
         <HomeScreenText />
-        <div class="folderContainer">
-          <ShowChooseFolder title="Show Child">
-            <FolderDialog changeArrays={this.changeArrays} />
-          </ShowChooseFolder>
+
+        <FolderDialog
+          changeArrays={this.changeArrays}
+          changeAudio={this.changeAudio}
+        />
+
+        <Canvas data={this.state.arrays} />
+
+        <PlayAudio audio={this.state.audio} />
+        {/* <div class="folderContainer">
+          <ShowChooseFolder title="Show Child"></ShowChooseFolder>
         </div>
-        <div class="canvasContainer">
-          <ShowCanvas title="Show Child">
-            <Canvas data={this.state.arrays} />
-          </ShowCanvas>
-        </div>
-        <Footer />
+        <div class="canvasContainer"></div> */}
       </body>
     );
   }

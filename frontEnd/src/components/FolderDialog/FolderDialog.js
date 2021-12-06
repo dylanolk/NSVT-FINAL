@@ -30,7 +30,7 @@ class FolderDialog extends React.Component {
   async postSelectedFile(selectedFile) {
     const formData = new FormData();
     formData.append("file", selectedFile);
-    var temparray = [];
+    var tempArray = [];
     var wav_data = "";
     await axios
       .post("http://127.0.0.1:5000/process", formData)
@@ -44,11 +44,12 @@ class FolderDialog extends React.Component {
       })
       .then(function (text) {
         wav_data = text.data.payload;
-        temparray = text.data;
+        tempArray = text.data;
       });
-    var audio = new Audio("data:audio/wav;base64," + wav_data);
-    console.log(temparray);
-    this.props.changeArrays(temparray);
+    var audio = new Audio(`data:audio/wav;base64,${wav_data}`);
+    console.log(tempArray);
+    this.props.changeArrays(tempArray);
+    this.props.changeAudio(audio);
     this.setState({ isFilePicked: false });
   }
 

@@ -57,23 +57,25 @@ def process():
 
         audio_data = create_aud_buf(sound, sampFreq)
 
-        #wavfile.write(byte_io, sampFreq, sound)
         if sound.ndim > 1:
             sound = sound[1:, 0]
             print("test1")
         sound = sound[1:100000]
-        print("test2")
-        aa = resample_summary(sound, sampFreq)
-        print("test")
 
-        if len(aa) == 1:
-            newsound = aa[0]["data"]
 
-        # else:
-            # newsound = np.stack((aa[1]["data"],aa[0]["data"]), axis = 1)
-            # newsound = np.asarray(newsound)
 
-        change = sampFreq/aa[0]["ny_rate"]
+        audio_out = resample_summary(sound, sampFreq)
+
+
+        if len(audio_out) == 1:
+            newsound = audio_out[0]["data"]
+        else:
+            newsound = sound
+
+        change = sampFreq/audio_out[0]["ny_rate"]
+
+        audio_data_out = create_aud_buf(newsound, audio_out[0]["ny_rate"])
+
 
         wave_file = wave.open(request.files['file'], mode='rb')
         sound = [sound.tolist()]
@@ -83,23 +85,6 @@ def process():
         print(type(sound))
         print(type(newsound))
         print("===")
-        #audio_data2 = create_aud_buf(newsound, int(aa[0]["ny_rate"]))
-        # print("===")
-        # print(type(newsound))
-        # print(type(aa[0]["ny_rate"]))
-        # print("===")
-
-        '''
-
-		data: [[]]
-
-
-		data
-			data [[]]
-			payload ...
-			
-		'''
-
         print(len(newsound[0]))
         print(len(sound[0]))
 
@@ -114,11 +99,11 @@ def process():
                     sound, newsound, change])
 
         response = make_response(
-            {"payload": str(audio_data), "data": data}, 200)
+            {"audio_in": str(audio_data), "data": data, "audio_out": audio_data_out}, 
+            200)
 
         audio_transf = str(audio_data)
-        # print(audio_transf)
-        # print(type(audio_transf))
+
 
         # return render_template("home.html", value = audio_transf, vlen = len(audio_transf) -1 )
         return response

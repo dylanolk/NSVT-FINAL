@@ -17,6 +17,7 @@ class PlayAudio extends React.Component {
   render() {
     console.log("audio from back end", this.props);
     console.log("manually encoded wav ", file);
+
     return (
       <div>
         <h1>Audio start </h1>

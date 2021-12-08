@@ -30,10 +30,12 @@ class HomeScreen extends React.Component {
     this.state = {
       arrays: [],
       audio: "",
+      processed: "",
     };
 
     this.changeArrays = this.changeArrays.bind(this);
     this.changeAudio = this.changeAudio.bind(this);
+    this.changeProcessed = this.changeProcessed.bind(this);
   }
 
   // constructor(props){
@@ -53,6 +55,9 @@ class HomeScreen extends React.Component {
     this.setState({ audio: newAudio });
     console.log("audio ", this.state.audio);
   }
+  changeProcessed(newAudio) {
+    this.setState({ processed: newAudio });
+  }
 
   render() {
     return (
@@ -64,11 +69,12 @@ class HomeScreen extends React.Component {
         <FolderDialog
           changeArrays={this.changeArrays}
           changeAudio={this.changeAudio}
+          changeProcessed={this.changeProcessed}
         />
 
         <Canvas data={this.state.arrays} />
 
-        <PlayAudio audio={this.state.audio} />
+        <PlayAudio audio={this.state.audio} processed={this.state.audio} />
         {/* <div class="folderContainer">
           <ShowChooseFolder title="Show Child"></ShowChooseFolder>
         </div>

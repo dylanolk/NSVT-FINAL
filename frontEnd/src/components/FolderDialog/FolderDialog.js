@@ -34,14 +34,26 @@ class FolderDialog extends React.Component {
 
     await axios
       .post("http://127.0.0.1:5000/process", formData)
-      .then((response) => {
-        this.props.changeAudio(
-          response.data.payload.substring(2, response.data.payload.length - 1)
-        );
-        console.log("this is response", response);
 
+      .then((response) => {
+        console.log("this is response", response);
+        this.props.changeAudio(
+          response.data.audio_in.substring(2, response.data.audio_in.length - 1)
+        );
+        this.props.changeProcessed(
+          response.data.audio_out.substring(
+            2,
+            response.data.audio_out.length - 1
+          )
+        );
+        console.log(
+          "comparison",
+          response.data.audio_in.length,
+          response.data.audio_out.length
+        );
         return response;
       })
+
       .then(function (text) {
         tempArray = text.data;
       });

@@ -99,7 +99,7 @@ def process():
                     sound, newsound, change])
 
         response = make_response(
-            {"audio_in": str(audio_data), "data": data, "audio_out": audio_data_out}, 
+            {"audio_in": str(audio_data), "data": data, "audio_out": str(audio_data_out)}, 
             200)
 
         audio_transf = str(audio_data)

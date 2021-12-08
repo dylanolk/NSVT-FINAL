@@ -51,7 +51,7 @@ class HomeScreen extends React.Component {
 
   changeAudio(newAudio) {
     this.setState({ audio: newAudio });
-    console.log(this.state.audio);
+    console.log("audio ", this.state.audio);
   }
 
   render() {

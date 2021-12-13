@@ -53,7 +53,7 @@ class HomeScreen extends React.Component {
 
   changeAudio(newAudio) {
     this.setState({ audio: newAudio });
-    console.log("audio ", this.state.audio);
+    //console.log("audio ", this.state.audio);
   }
   changeProcessed(newAudio) {
     this.setState({ processed: newAudio });
@@ -74,7 +74,11 @@ class HomeScreen extends React.Component {
 
         <Canvas data={this.state.arrays} />
 
-        <PlayAudio audio={this.state.audio} processed={this.state.audio} />
+        <PlayAudio
+          audio={this.state.audio}
+          processed={this.state.audio}
+          data={this.state.arrays["data"]}
+        />
         {/* <div class="folderContainer">
           <ShowChooseFolder title="Show Child"></ShowChooseFolder>
         </div>

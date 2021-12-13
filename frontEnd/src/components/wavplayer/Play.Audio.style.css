@@ -1,0 +1,8 @@
+.originalAudio {
+  position: relative;
+  margin-left: 20%;
+}
+.compressedAudio {
+  position: relative;
+  margin-left: 100%;
+}

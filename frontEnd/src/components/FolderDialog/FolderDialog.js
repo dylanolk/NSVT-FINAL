@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import "./FolderDialog.style.css";
 import Button from "../buttons/Button";
-
-//import wav from 'node-wav';
-import fs from "fs";
-import SoundWave from "../SoundWave";
 import axios from "axios";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
@@ -18,8 +14,6 @@ class FolderDialog extends React.Component {
     this.postSelectedFile = this.postSelectedFile.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
   }
-  // const [selectedFile, setSelectedFile] = useState();
-  // const [isFilePicked, setIsFilePicked] = useState(false);
 
   changeHandler(event) {
     this.setState({ selectedFile: event.target.files[0] });

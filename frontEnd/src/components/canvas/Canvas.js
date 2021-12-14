@@ -5,7 +5,7 @@ class Canvas extends React.Component {
 	constructor(props){
 		super(props);
 		this.state={
-			ARR_NUM : 1, 
+			ARR_NUM : 0, 
 			MOUSE_POS: 0,
 			SCALE_FACTOR: 1,
 			DISPLAY_TRANSFORM: 3, 
@@ -46,13 +46,15 @@ class Canvas extends React.Component {
 		var data=this.props.data;
 		
 		var SCALE_FACTOR= this.state.SCALE_FACTOR
-		
 		c.canvas.width=1920
 		c.moveTo(0, 250)
 		c.lineTo(1920, 250)
 		c.stroke();
-		
+		console.log(this.props.data);
+		if(this.props.data.length==0 || !this.props.data)
+			return;
 		for(var i = this.state.DISPLAY_ORIGINAL; i<this.state.DISPLAY_TRANSFORM; i++){
+			
 			var change=1;
 			if (i==2)
 				change= this.props.data[3]
@@ -95,6 +97,7 @@ class Canvas extends React.Component {
 			c.stroke();
 			c.closePath();
 		}
+		
 		// console.log(max);
 		// console.log(lines);
 			
@@ -102,9 +105,10 @@ class Canvas extends React.Component {
 	
 	wheelZoom(event){
 		event.preventDefault();
+		console.log(event.deltaY);
 		
 		if(event.ctrlKey){
-			this.state.SCALE_FACTOR= this.state.SCALE_FACTOR+=Math.floor(event.deltaY/102);
+			this.state.SCALE_FACTOR= this.state.SCALE_FACTOR+=Math.floor(event.deltaY/Math.abs(event.deltaY));
 			if(this.state.SCALE_FACTOR > 19 && this.state.ARR_NUM<this.props.data.length){
 				this.state.SCALE_FACTOR=2;
 				this.state.ARR_NUM++;
@@ -117,7 +121,7 @@ class Canvas extends React.Component {
 		}
 		
 		else{
-			this.state.SHIFT+=Math.floor(event.deltaY/102)*500;
+			this.state.SHIFT+=Math.floor(event.deltaY/Math.abs(event.deltaY))*500;
 		}
 		
 		this.display();
@@ -133,11 +137,13 @@ class Canvas extends React.Component {
 	componentDidMount(){
 		const canvas= this.refs.canvas;
 		const c= canvas.getContext("2d")
+		
 		c.clearRect(0, 0, canvas.width, canvas.height);
 		canvas.addEventListener("wheel", this.wheelZoom);
 		canvas.addEventListener("mousemove", this.mouseMove);
 		// this.display();
-		
+		c.fillStyle = "white";
+		c.fillRect(0, 0, canvas.width, canvas.height);
 		c.moveTo(0, 250)
 		c.lineTo(1920, 250)
 		c.stroke()

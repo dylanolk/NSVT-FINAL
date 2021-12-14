@@ -5,7 +5,7 @@ import FolderDialog from "../../components/FolderDialog/FolderDialog";
 import Canvas from "../../components/canvas/Canvas";
 import Footer from "../../components/footer/Footer";
 import Button from "../../components/buttons/Button";
-
+import SampleDropdown from "../../components/SampleDropdown";
 import HomeScreenText from "../../components/text/HomeScreenText";
 import PlayAudio from "../../components/wavplayer/PlayAudio";
 import axios from "axios";
@@ -31,11 +31,11 @@ class HomeScreen extends React.Component {
       arrays: [],
       audio: "",
       processed: "",
+	  defaults: {},
     };
 
     this.changeArrays = this.changeArrays.bind(this);
     this.changeAudio = this.changeAudio.bind(this);
-    this.changeProcessed = this.changeProcessed.bind(this);
   }
 
   // constructor(props){
@@ -45,19 +45,31 @@ class HomeScreen extends React.Component {
   //   }
   //   this.handleClick = this.handleClick.bind(this);
   // };
+   async componentDidMount(){
+    var temparray = [];
+    await axios
+      .get("http://127.0.0.1:5000/defaults")
+      .then(function (response) {
+        return response;
+      })
+      .then(function (text) {
+        temparray = text.data;
+      });
+    console.log(temparray);
+    this.setState({defaults:temparray});
+	console.log(this.state.arrays);
+  }
 
   changeArrays(new_arrays) {
     this.setState({ arrays: new_arrays });
     console.log(this.state.arrays);
   }
 
-  changeAudio(newAudio) {
+  changeAudio(newAudio, newProcessed) {
     this.setState({ audio: newAudio });
-    //console.log("audio ", this.state.audio);
+    this.setState({ processed: newProcessed });
   }
-  changeProcessed(newAudio) {
-    this.setState({ processed: newAudio });
-  }
+
 
   render() {
     return (
@@ -69,9 +81,8 @@ class HomeScreen extends React.Component {
         <FolderDialog
           changeArrays={this.changeArrays}
           changeAudio={this.changeAudio}
-          changeProcessed={this.changeProcessed}
         />
-
+		<SampleDropdown changeArrays={this.changeArrays} changeAudio={this.changeAudio} defaults={this.state.defaults}/>
         <Canvas data={this.state.arrays} />
 
         <PlayAudio

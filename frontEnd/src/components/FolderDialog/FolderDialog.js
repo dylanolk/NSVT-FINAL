@@ -32,24 +32,19 @@ class FolderDialog extends React.Component {
       .then((response) => {
         console.log("this is response", response);
         this.props.changeAudio(
-          response.data.audio_in.substring(2, response.data.audio_in.length - 1)
+          response.data.audio_in.substring(2, response.data.audio_in.length - 1),
+		  response.data.audio_out.substring(2, response.data.audio_out.length - 1)
         );
-        this.props.changeProcessed(
-          response.data.audio_out.substring(
-            2,
-            response.data.audio_out.length - 1
-          )
-        );
+		
         console.log(
           "comparison",
-          response.data.audio_in.length,
-          response.data.audio_out.length
+          response.data.audio_out.substring(2, response.data.audio_out.length - 1)
         );
         return response;
       })
 
       .then(function (text) {
-        tempArray = text.data;
+        tempArray = JSON.parse(text.data.data);
       });
 
     this.props.changeArrays(tempArray);

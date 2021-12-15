@@ -17,6 +17,7 @@ Here are some guidelines on how to download and run our project. We recommend vi
 #### Setup
 1. Clone this repo into an appropriate folder 
 2. Fire up the React Server: 
+
  `cd FrontEnd`
 
  `npm install`
@@ -31,6 +32,7 @@ Note that it runs from `localhost:3000`.
 >Tip: Open a new command window or tab so that you can easily switch between the two. Furthermore, both the backend and front end needs to be running. 
 
 3. Fire up the Flask server: same deal. 
+
 `cd nyquist-test`
 
 `pip install -r requirements.txt`
@@ -41,6 +43,7 @@ Note that it runs from `localhost:3000`.
 
 This time locate the nyquist-test folder, which is where the back end runs from. Install the needed Python modules from requirements and run the server. Note that it runs from `localhost:5000`.
 > Tip: It is recommended you use a virtual environment to not pollute your current Python setup. Before you `pip install` do this first:
+
 > `python3 -m pip install --user virtualenv`
 
 > `python3 -m venv env`

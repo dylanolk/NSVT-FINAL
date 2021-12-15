@@ -1,8 +1,22 @@
 .originalAudio {
   position: relative;
-  margin-left: 20%;
+  /* margin-left:4%; */
+  /* margin-right: 70%; */
+  border-style:solid;
+  padding:0px;
 }
 .compressedAudio {
   position: relative;
-  margin-left: 100%;
+  /* margin-top: 10px; */
+  /* margin-bottom:10px; */
+  /* margin-left:4%; */
+  /* margin-right: 70%; */
+  border-style:solid;
+  padding:0px;
+}
+
+.audio_player{
+	display:inline-block;
+	padding: 20px;
+	width:40%;
 }

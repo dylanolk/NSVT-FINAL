@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
 body {
-  display: gird;
-  background: url("../../photos/lawless-capture-XKvXTRi_13g-unsplash.jpeg");
+  display: grid;
+  background-color: #3d314a;
   background-size: cover;
 }
 
@@ -18,4 +18,15 @@ body {
   position: fixed;
   top: 60%;
   left: 10%;
+}
+
+.information{
+	 border-style: solid;
+	 margin-top: 20px;
+	 padding: 10px;
+}
+
+.dropdown{
+	margin-right:70%;
+	position:relative;
 }

@@ -76,20 +76,22 @@ class HomeScreen extends React.Component {
       <body>
         {/* <Header /> */}
         {/* <HomeScreenText /> */}
-        <HomeScreenText />
-
-        <FolderDialog
-          changeArrays={this.changeArrays}
-          changeAudio={this.changeAudio}
-        />
-		<SampleDropdown changeArrays={this.changeArrays} changeAudio={this.changeAudio} defaults={this.state.defaults}/>
+>
+		<div>
+			<FolderDialog
+			  changeArrays={this.changeArrays}
+			  changeAudio={this.changeAudio}
+			/>
+			<PlayAudio
+			  audio={this.state.audio}
+			  processed={this.state.processed}
+			  data={this.state.arrays["data"]}
+			/>
+		</div>
+		<SampleDropdown changeArrays={this.changeArrays} changeAudio={this.changeAudio} defaults={this.state.defaults} class="dropdown"/>
         <Canvas data={this.state.arrays} />
 
-        <PlayAudio
-          audio={this.state.audio}
-          processed={this.state.audio}
-          data={this.state.arrays["data"]}
-        />
+        
         {/* <div class="folderContainer">
           <ShowChooseFolder title="Show Child"></ShowChooseFolder>
         </div>

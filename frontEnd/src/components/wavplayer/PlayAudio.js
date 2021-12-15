@@ -16,16 +16,30 @@ class PlayAudio extends React.Component {
     });
     console.log("audioFile:", audioFile);
 
-    // let wav = new WaveFile();
-    // console.log("this.props.data", this.props.data);
-    // if (this.props.data) {
-    //   console.log("inside if ", JSON.parse(this.props.data)[1][0]);
-    //   wav.fromScratch(1, 44100, "8", JSON.parse(this.props.data)[1][0]);
-    //   console.log("audioFile wav :", wav);
-    // }
-
-    // wav.toSampleRate(22050);
-
+	
+if(this.props.audio){
+  // fetch("data:audio/wav;base64," + this.props.audio)
+    // .then(res => res.blob())
+    // .then(blob => {
+      // console.log(blob);
+      // var url = window.URL.createObjectURL(blob);
+	  // console.log(url);
+	  // window.location.assign(url);
+    // });
+	console.log("***",this.props.processed)
+	console.log("***",this.props.audio)
+	
+  // fetch("data:audio/wav;base64," + this.props.processed)
+    // .then(res => res.blob())
+    // .then(blob => {
+      // console.log(blob);
+      // var url = window.URL.createObjectURL(blob);
+	  // console.log(url);
+	  // window.location.assign(url);
+    // });
+}
+	
+	
     return (
       <div>
         <div class="originalAudio">

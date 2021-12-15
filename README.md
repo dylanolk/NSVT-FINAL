@@ -30,6 +30,7 @@ Note that it runs from `localhost:3000`.
 3. Fire up the Flask server: same deal. 
 `cd nyquist-test`
 `pip install -r requirements.txt`
+`export FLASK_APP=app`
 `flask run`
 This time locate the nyquist-test folder, which is where the back end runs from. Install the needed Python modules from requirements and run the server. Note that it runs from `localhost:5000`.
 > Tip: It is recommended you use a virtual environment to not pollute your current Python setup. Before you `pip install` do this first:

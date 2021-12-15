@@ -3,10 +3,17 @@
   /* padding-bottom: 50px; */
   /* justify-content: center; */
   transition: 0.3s;
-  width: 250px;
-  height: 200px;
+  /* width: 250px; */
+  /* height: 200px; */
+  width:20%;
   border-style:solid;
   /* margin:20px; */
-  display: inline-block;
+  display: relative;
   padding:20px;
+  float:left;
+}
+
+.button{
+	all:unset;
+	display:relative;
 }

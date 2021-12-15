@@ -8,10 +8,10 @@ h2 {
   font-family: "Montserrat";
   color: lightcyan;
   /* background-color: lightgray; */
-  position: fixed;
+  /* position: fixed; */
   top: 15%;
   left: 5%;
-  width: 600px;
+  width: 50%;
   border-style: solid;
   border-bottom-right-radius: 8px;
   border-top-left-radius: 8px;
@@ -20,9 +20,15 @@ h2 {
   /* transform: translate(-50%, -50%); */
   /* border-bottom-left-radius: 8px;
    */
+   display:inline-block;
+   float:left;
+   margin:50px;
 }
 .aboutvideo {
-  position: fixed;
+  /* position: fixed; */
+  display:inline-block;
   top: 15%;
   left: 50%;
+  float:right;
+  margin:50px;
 }

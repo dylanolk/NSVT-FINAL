@@ -17,9 +17,18 @@ p {
 .my_navbar{
 	background-color: #684756;
 	height: 15%;
-	position: relative;
+	/* position: absolute; */
+	
+	width:100%;
+	padding: 20px;
+
+	display:block;
+	margin-bottom:20px;
 }
 
+.navbar_wrapper{
+
+}
 
 
 
@@ -36,11 +45,13 @@ button {
     padding: 10px;
     outline: none;
     border-radius: 4px;
-	margin: 0;
+
 	position: relative;
 	top: 50%;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
+	/* -ms-transform: translateY(-50%); */
+	/* transform: translateY(-50%); */
+	margin:20px;
+	margin-top:0px;
 	
 }
 button:hover {

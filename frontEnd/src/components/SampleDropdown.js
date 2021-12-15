@@ -27,7 +27,7 @@ class Canvas extends React.Component {
 		
 	};
 	return (
-	 <div>
+	 <div class="dropdown">
 		<select value={this.state.value} onChange={this.handleChange} class="custom-select" >
 		<option value="sine"> Sine </option>
 		<option value="cantina"> Cantina </option>

@@ -3,6 +3,7 @@ import "./header.style.css";
 
 function Header() {
   return (
+  <div class="navbar_wrapper">
    <div class="my_navbar">
    <button>
       <a class="navbar-brand" href="/">
@@ -15,6 +16,7 @@ function Header() {
 
             </a>
 	</button>
+  </div>
   </div>
   );
 }

@@ -1,22 +1,26 @@
-.originalAudio {
+
+.Audio {
   position: relative;
-  /* margin-left:4%; */
-  /* margin-right: 70%; */
+
   border-style:solid;
-  padding:0px;
-}
-.compressedAudio {
-  position: relative;
-  /* margin-top: 10px; */
-  /* margin-bottom:10px; */
-  /* margin-left:4%; */
-  /* margin-right: 70%; */
-  border-style:solid;
-  padding:0px;
+  padding:5px;
+  margin-left:20px;
+  margin-right:20px;
+  margin-bottom:20px;
 }
 
 .audio_player{
 	display:inline-block;
-	padding: 20px;
+	
 	width:40%;
+	float:left;
+}
+
+audio{
+	display:inline-block;
+	float:left;
+}
+
+.download_button{
+	display:inline-block;
 }

@@ -25,7 +25,7 @@ Here are some guidelines on how to download and run our project. We recommend vi
 	Front end servers will need to be running in order for our project to work. 
 Note that it runs from `localhost:3000`.
 
->Tip: Open a new command window or tab so that you can easily switch between the two. Furthermore, both the back and 
+>Tip: Open a new command window or tab so that you can easily switch between the two. Furthermore, both the backend and front end needs to be running. 
 
 3. Fire up the Flask server: same deal. 
 `cd nyquist-test`

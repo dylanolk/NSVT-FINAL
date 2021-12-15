@@ -26,7 +26,7 @@ Here are some guidelines on how to download and run our project. We recommend vi
 
  Install the needed React dependencies and start it up. 
 
-	Front end servers will need to be running in order for our project to work. 
+Front end servers will need to be running in order for our project to work. 
 Note that it runs from `localhost:3000`.
 
 >Tip: Open a new command window or tab so that you can easily switch between the two. Furthermore, both the backend and front end needs to be running. 

@@ -1,12 +1,11 @@
-from flask import Flask, render_template, request, make_response, url_for, send_file
+from flask import Flask, render_template, request, make_response, url_for, send_file, jsonify
 from scipy.io import wavfile
 from thm import *
 from io import StringIO, BytesIO
 import base64
-from flask import jsonify
 import json
 from flask_cors import CORS
-import wave
+
 
 app = Flask(__name__)
 CORS(app)
@@ -111,7 +110,7 @@ def process():
     else:
         print('false')
 
-    return render_template("home.html")
+    #return render_template("home.html")
 
 def process_defaults(filepath):
 
@@ -185,3 +184,6 @@ def process_defaults(filepath):
 def defaults():
 	return {"cantina": process_defaults("./cantina.wav"), "sine": process_defaults("./sine.wav"), "star_wars" : process_defaults("./StarWars3.wav"), "taunt": process_defaults("taunt.wav")}
 	
+
+if __name__ == '__main__':
+    main()

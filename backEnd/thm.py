@@ -69,8 +69,8 @@ INPUT: array (np float), int
 OUTPUT: array (np float)
 '''
 def fft_filter(data, threshold_pre = 99):
-    if threshold <= 0 or threshold >= 100:
-        threshold = 99
+    if threshold_pre <= 0 or threshold_pre >= 100:
+        threshold_pre = 99
     threshold = np.percentile(data, threshold_pre)
     threshold_indices = data < threshold
     data[threshold_indices] = 0

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { convertToObject } from "typescript";
+import "./Canvas.style.css";
 
 class Canvas extends React.Component {
 	constructor(props){
@@ -12,6 +13,7 @@ class Canvas extends React.Component {
 			DISPLAY_ORIGINAL: 1,
 			checked1:true,
 			checked2:true,
+			checked3: true,
 			SHIFT: 0,
 			
 		};
@@ -21,6 +23,7 @@ class Canvas extends React.Component {
 		this.mouseMove=this.mouseMove.bind(this);
 		this.displayTransform= this.displayTransform.bind(this);
 		this.displayOriginal = this.displayOriginal.bind(this);
+		this.displayLines = this.displayLines.bind(this);
 	}
 
 //Takes in current position in array, array number, and data. Returns local max and mins within a window of size SCALE_FACTOR
@@ -104,8 +107,12 @@ class Canvas extends React.Component {
 	}
 	
 	wheelZoom(event){
+		if(Math.abs(event.deltaY/Math.abs(event.deltaY)) != 1){
+			return
+		}
 		event.preventDefault();
 		console.log(event.deltaY);
+		console.log(this.state.SHIFT);
 		
 		if(event.ctrlKey){
 			this.state.SCALE_FACTOR= this.state.SCALE_FACTOR+=Math.floor(event.deltaY/Math.abs(event.deltaY));
@@ -122,6 +129,9 @@ class Canvas extends React.Component {
 		
 		else{
 			this.state.SHIFT+=Math.floor(event.deltaY/Math.abs(event.deltaY))*500;
+			if(this.state.SHIFT<=0){
+				this.state.SHIFT=0;
+			}
 		}
 		
 		this.display();
@@ -132,6 +142,10 @@ class Canvas extends React.Component {
 		var canvas=this.refs.canvas;
 		var cRect = canvas.getBoundingClientRect();
 		this.state.MOUSE_POS = Math.round(event.clientX - cRect.left);
+	}
+	
+	displayLines(event){
+		this.setState({checked3: event.target.checked})
 	}
 	
 	componentDidMount(){
@@ -187,12 +201,14 @@ class Canvas extends React.Component {
 	};
 	return (
 	 <div>
-		<canvas ref="canvas" width={1920} height={500} style={styles}/>
+		<canvas ref="canvas" class="my_canvas" width={1920} height={500} style={styles}/>
 		<form onSubmit={this.handleSubmit}> 
           <input type="checkbox" checked={this.state.checked1} onChange={this.displayTransform}/>
 			{"Display Downsampled Waveform"}
 			 <input type="checkbox" checked={this.state.checked2} onChange={this.displayOriginal}/>
 			{"Display Original Waveform"}
+			<input type="checkbox" checked={this.state.checked3} onChange={this.displayLines}/>
+			{"Draw Lines to Samples"}
 		</form>
 	</div>
 

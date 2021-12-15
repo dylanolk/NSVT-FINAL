@@ -3,38 +3,19 @@ import "./header.style.css";
 
 function Header() {
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+   <div class="my_navbar">
+   <button>
       <a class="navbar-brand" href="/">
-        <p>Nyquist Shannon Theorem Visualizer</p>
+        Nyquist Shannon Theorem Visualizer
       </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        /<span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
+	</button>
+    <button>
             <a class="nav-link" href="/about">
-              <p>
                 About The Theorem <span class="sr-only">(current)</span>
-              </p>
+
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/wavlibrary">
-              <p>Wav Library</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+	</button>
+  </div>
   );
 }
 

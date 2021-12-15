@@ -35,10 +35,11 @@ class FolderDialog extends React.Component {
           response.data.audio_in.substring(2, response.data.audio_in.length - 1),
 		  response.data.audio_out.substring(2, response.data.audio_out.length - 1)
         );
-		
+	
         console.log(
           "comparison",
-          response.data.audio_out.substring(2, response.data.audio_out.length - 1)
+          response.data.audio_out.substring(2, response.data.audio_out.length - 1).length,
+		  response.data.audio_in.substring(2, response.data.audio_in.length - 1).length
         );
         return response;
       })
@@ -60,7 +61,7 @@ class FolderDialog extends React.Component {
           <p>Choose the sound file you want to run through the visualizer.</p>
 
           {!this.state.isFilePicked ? (
-            <input type="file" name="file" onChange={this.changeHandler} />
+            <input type="file" name="file" class="button" onChange={this.changeHandler} />
           ) : (
             <Button
               title="Convert File"

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { convertToObject } from "typescript";
+import "./SampleDropdown.style.css"
 
 class Canvas extends React.Component {
 	constructor(props){
@@ -27,11 +28,10 @@ class Canvas extends React.Component {
 	};
 	return (
 	 <div>
-		<select value={this.state.value} onChange={this.handleChange} >
+		<select value={this.state.value} onChange={this.handleChange} class="custom-select" >
 		<option value="sine"> Sine </option>
 		<option value="cantina"> Cantina </option>
 		<option value="star_wars"> Star Wars </option>
-		<option value= "taunt"> Taunt </option>
 		
 		</select>
 	</div>

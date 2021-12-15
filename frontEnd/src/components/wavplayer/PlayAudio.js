@@ -2,49 +2,77 @@ import React, { useState, useEffect } from "react";
 import "react-h5-audio-player/lib/styles.css";
 import { WaveFile } from "wavefile";
 import fs from "fs";
+import "./Play.Audio.style.css"
 
 class PlayAudio extends React.Component {
   constructor(props) {
     super(props);
+	
+	this.downloadProcessed=this.downloadProcessed.bind(this);
+	this.downloadAudio=this.downloadAudio.bind(this);
   }
 
+
+
+	
+	downloadProcessed(){
+	  fetch("data:audio/wav;base64," + this.props.processed)
+		.then(res => res.blob())
+		.then(blob => {
+		  console.log(blob);
+		  var url = window.URL.createObjectURL(blob);
+		  console.log(url);
+		  window.location.assign(url);
+		});
+		console.log("***",this.props.processed)
+		console.log("***",this.props.audio)
+	}
+	
+	downloadAudio(){
+	  fetch("data:audio/wav;base64," + this.props.audio)
+		.then(res => res.blob())
+		.then(blob => {
+		  console.log(blob);
+		  var url = window.URL.createObjectURL(blob);
+		  console.log(url);
+		  window.location.assign(url);
+		});
+		console.log("***",this.props.processed)
+		console.log("***",this.props.audio)
+	}
   render() {
-    const fileName = "processedAudio" + Date.now();
-    const audioFile = new File([this.props.processed], `${fileName}.wav`, {
-      type: "audio/wav",
-      lastModified: Date.now(),
-    });
-    console.log("audioFile:", audioFile);
-
-    // let wav = new WaveFile();
-    // console.log("this.props.data", this.props.data);
-    // if (this.props.data) {
-    //   console.log("inside if ", JSON.parse(this.props.data)[1][0]);
-    //   wav.fromScratch(1, 44100, "8", JSON.parse(this.props.data)[1][0]);
-    //   console.log("audioFile wav :", wav);
-    // }
-
-    // wav.toSampleRate(22050);
-
+	
     return (
-      <div>
+      <div class="audio_player">
         <div class="originalAudio">
           <p>This is the original.</p>
           {this.props.audio && (
+		  <div>
             <audio
               controls
               src={"data:audio/wav;base64," + this.props.audio}
             ></audio>
+			<button onClick={this.downloadAudio}>
+				Download
+			</button>
+			</div>
           )}
+		  
         </div>
         <div class="compressedAudio">
           <p>This is the processed audio.</p>
           {this.props.audio && (
+		  <div>
             <audio
               controls
-              src={"data:audio/wav;base64," + this.props.processed}
+              src={"data:audio/wav;base64," + this.props.audio}
             ></audio>
+			<button onClick={this.downloadProcessed}>
+				Download
+			</button>
+			 </div>
           )}
+		 
         </div>
       </div>
     );

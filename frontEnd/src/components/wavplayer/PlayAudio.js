@@ -75,9 +75,9 @@ class PlayAudio extends React.Component {
 		 
         </div>
       </div>
-	  <div class="information">
+	  // <div class="information">
 			
-	  </div>
+	  // </div>
     );
   }
 }

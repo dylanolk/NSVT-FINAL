@@ -27,7 +27,7 @@ class FolderDialog extends React.Component {
     var tempArray = [];
 
     await axios
-      .post("herokutestcs.herokuapp.com/process", formData)
+      .post("http://127.0.0.1:5000/process", formData)
 
       .then((response) => {
         console.log("this is response", response);

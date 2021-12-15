@@ -44,22 +44,22 @@ class PlayAudio extends React.Component {
 	
     return (
       <div class="audio_player">
-        <div class="originalAudio">
-          <p>This is the original.</p>
+        <div class="Audio">
+          <p>This is the original audio.</p>
           {this.props.audio && (
 		  <div>
             <audio
               controls
               src={"data:audio/wav;base64," + this.props.audio}
             ></audio>
-			<button onClick={this.downloadAudio}>
+			<button onClick={this.downloadAudio} class="download_button">
 				Download
 			</button>
 			</div>
           )}
 		  
         </div>
-        <div class="compressedAudio">
+        <div class="Audio">
           <p>This is the processed audio.</p>
           {this.props.audio && (
 		  <div>
@@ -67,7 +67,7 @@ class PlayAudio extends React.Component {
               controls
               src={"data:audio/wav;base64," + this.props.audio}
             ></audio>
-			<button onClick={this.downloadProcessed}>
+			<button onClick={this.downloadProcessed} class="download_button">
 				Download
 			</button>
 			 </div>

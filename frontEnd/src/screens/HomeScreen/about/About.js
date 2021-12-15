@@ -9,14 +9,15 @@ const About = () => {
         <h2>So what's the deal with the Nyquist Shannon Theorem?</h2>
         <ul>
           <li>
-            The Nyquist-Shannon Theorem is a technique to create a perfectly
-            lossless representation of a sound wave using far less information.
+            The Nyquist-Shannon Theorem states that when representing an analog signal digitally,
+			as long as your number of
+            sampling points is at least twice as great as the signal’s highest
+            frequency, you can represent that signal using only those points without losing any
+			information at all.
           </li>
           <li>
-            The Nyquist-Shannon Theorem states that as long as your number of
-            sampling points is at least twice as great as the signal’s highest
-            frequency, you can create a wave using only those points without
-            losing any information at all.
+			This means if we resample an audio file to have a sampling rate that is 
+			twice it's maximum detected frequency, we can greatly reduce the file size.
           </li>
           <li>
             Our visualizer accepts a large audio file and reduces the amount of

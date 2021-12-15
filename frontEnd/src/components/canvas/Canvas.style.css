@@ -2,6 +2,18 @@
 	background-color: #96705b;
 }
 
+.checkboxes{
+	border-style:solid;
+	background-color: #ab8476;
+	padding:20px;
+}
+.checkbox{
+	border-style:solid;
+	display: inline-block;
+	margin: 10px;
+	padding: 15px;
+}
+
 /* input[type=checkbox] + label { */
   /* display: block; */
   /* margin: 0.2em; */

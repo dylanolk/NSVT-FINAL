@@ -73,6 +73,7 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
+	<div class="body">
       <body>
         {/* <Header /> */}
         {/* <HomeScreenText /> */}
@@ -88,8 +89,16 @@ class HomeScreen extends React.Component {
 			  data={this.state.arrays["data"]}
 			/>
 		</div>
-		<SampleDropdown changeArrays={this.changeArrays} changeAudio={this.changeAudio} defaults={this.state.defaults} class="dropdown"/>
-        <Canvas data={this.state.arrays} />
+		<div class="middle_section">
+			<div class="sample_dropdown">
+				<SampleDropdown changeArrays={this.changeArrays} changeAudio={this.changeAudio} defaults={this.state.defaults} class="dropdown"/>
+			</div>
+			</div>
+			<div class="control_text">
+				<p> Use CTRL + ScrollWheel to zoom in and out horizontally, use SHIFT + ScrollWheel to zoom in and out vertically, use ScrollWheel to scrub through the audio file </p>
+			</div>
+		
+		<Canvas data={this.state.arrays} />
 
         
         {/* <div class="folderContainer">
@@ -97,6 +106,7 @@ class HomeScreen extends React.Component {
         </div>
         <div class="canvasContainer"></div> */}
       </body>
+	  </div>
     );
   }
 }

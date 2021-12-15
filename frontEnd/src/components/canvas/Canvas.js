@@ -15,6 +15,7 @@ class Canvas extends React.Component {
 			checked2:true,
 			checked3: true,
 			SHIFT: 0,
+			vertical_scale:1,
 			
 		};
 		this.getMax=this.getMax.bind(this);
@@ -66,33 +67,61 @@ class Canvas extends React.Component {
 			c.beginPath();
 			var lines=0;
 			var max=0;
-			
-			for(var x = Math.floor(this.state.SHIFT/Math.pow(10,this.state.ARR_NUM)/change); x<data[i][this.state.ARR_NUM].length; x++){
-				
-				if(lines>=1920) break;
+			if (this.state.checked3){
+				for(var x = Math.floor(this.state.SHIFT/Math.pow(10,this.state.ARR_NUM)/change); x<data[i][this.state.ARR_NUM].length; x++){
+					
+					if(lines>=1920) break;
 
-				if(SCALE_FACTOR>1){
-					var y = this.getMax(x,i,data)
-						
-							c.moveTo(Math.floor(x_coordinate*change),(0-y[2])/data[0][0]+250) 
-							c.lineTo(Math.floor(x_coordinate*change), (0-y[1])/data[0][0]+250)
-				}
-				else if (SCALE_FACTOR<0) {
-					c.moveTo(x_coordinate*Math.abs(SCALE_FACTOR)*change, 250) 
-					c.lineTo(x_coordinate*Math.abs(SCALE_FACTOR)*change, (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250)
-					var y=[x,0,0]
-				}
-				else{
-					c.moveTo(x_coordinate*change, 250) 
-					c.lineTo(x_coordinate*change, (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250)
-					var y=[x,0,0]
-				}
+					if(SCALE_FACTOR>1){
+						var y = this.getMax(x,i,data)
+								c.moveTo(Math.floor(x_coordinate*change),((0-y[2])*this.state.vertical_scale/data[0][0]+250)) 
+								c.lineTo(Math.floor(x_coordinate*change), ((0-y[1])*this.state.vertical_scale/data[0][0]+250))
+					}
+					else if (SCALE_FACTOR<0) {
+						c.moveTo(x_coordinate*Math.abs(SCALE_FACTOR)*change, 250) 
+						c.lineTo(x_coordinate*Math.abs(SCALE_FACTOR)*change, ((0-data[i][this.state.ARR_NUM][x]*this.state.vertical_scale/data[0][0][0])+250))
+						var y=[x,0,0]
+					}
+					else{
+						c.moveTo(x_coordinate*change, 250) 
+						c.lineTo(x_coordinate*change, ((0-data[i][this.state.ARR_NUM][x]*this.state.vertical_scale/data[0][0][0])+250))
+						var y=[x,0,0]
+					}
 
-				lines++;
-				
-				x_coordinate+=1;
-				x=y[0]
-				max=x;
+					lines++;
+					
+					x_coordinate+=1;
+					x=y[0]
+					max=x;
+				}
+			}
+			else{
+				for(var x = Math.floor(this.state.SHIFT/Math.pow(10,this.state.ARR_NUM)/change); x<data[i][this.state.ARR_NUM].length; x++){
+					
+					if(lines>=1920) break;
+
+					if(SCALE_FACTOR>1){
+						var y = this.getMax(x,i,data)
+								c.fillRect(Math.floor(x_coordinate*change),(0-y[2])/data[0][0]+250,2,2) 
+								c.fillRect(Math.floor(x_coordinate*change), (0-y[1])/data[0][0]+250,2,2)
+					}
+					else if (SCALE_FACTOR<0) {
+						c.fillRect(x_coordinate*Math.abs(SCALE_FACTOR)*change, 250,2,2) 
+						c.fillRect(x_coordinate*Math.abs(SCALE_FACTOR)*change, (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250,2,2)
+						var y=[x,0,0]
+					}
+					else{
+						c.fillRect(x_coordinate*change, 250,2,2) 
+						c.fillRect(x_coordinate*change, (0-data[i][this.state.ARR_NUM][x]/data[0][0][0])+250,2,2)
+						var y=[x,0,0]
+					}
+
+					lines++;
+					
+					x_coordinate+=1;
+					x=y[0]
+					max=x;
+				}
 			}
 			// console.log(max,"***");
 			var colors = ['red', 'green', 'blue']
@@ -111,7 +140,7 @@ class Canvas extends React.Component {
 			return
 		}
 		event.preventDefault();
-		console.log(event.deltaY);
+		console.log(event);
 		console.log(this.state.SHIFT);
 		
 		if(event.ctrlKey){
@@ -125,6 +154,13 @@ class Canvas extends React.Component {
 				this.state.ARR_NUM--;
 			}
 			console.log(this.state.SCALE_FACTOR, this.state.ARR_NUM);
+		}
+		
+		else if(event.shiftKey){
+			this.state.vertical_scale-=Math.floor(event.deltaY/Math.abs(event.deltaY));
+			if(this.state.vertical_scale <=1)
+				this.state.vertical_scale=1;
+			console.log(this.state.vertical_scale);
 		}
 		
 		else{
@@ -156,8 +192,6 @@ class Canvas extends React.Component {
 		canvas.addEventListener("wheel", this.wheelZoom);
 		canvas.addEventListener("mousemove", this.mouseMove);
 		// this.display();
-		c.fillStyle = "white";
-		c.fillRect(0, 0, canvas.width, canvas.height);
 		c.moveTo(0, 250)
 		c.lineTo(1920, 250)
 		c.stroke()
@@ -169,8 +203,7 @@ class Canvas extends React.Component {
 	   const canvas= this.refs.canvas;
 		const c= canvas.getContext("2d")
 		c.clearRect(0, 0, canvas.width, canvas.height);
-		if(this.props.data.length > 0)
-			this.display();
+		this.display();
 		
 	}
 	
@@ -203,13 +236,22 @@ class Canvas extends React.Component {
 	 <div>
 		<canvas ref="canvas" class="my_canvas" width={1920} height={500} style={styles}/>
 		<form onSubmit={this.handleSubmit}> 
+		<div class="checkboxes">
+		<div class="checkbox">
           <input type="checkbox" checked={this.state.checked1} onChange={this.displayTransform}/>
 			{"Display Downsampled Waveform"}
+		</div>
+		<div class="checkbox">
 			 <input type="checkbox" checked={this.state.checked2} onChange={this.displayOriginal}/>
 			{"Display Original Waveform"}
+		</div>
+		<div class="checkbox">
 			<input type="checkbox" checked={this.state.checked3} onChange={this.displayLines}/>
 			{"Draw Lines to Samples"}
+			</div>
+			</div>
 		</form>
+	
 	</div>
 
 	);

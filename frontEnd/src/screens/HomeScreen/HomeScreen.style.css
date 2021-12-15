@@ -5,6 +5,10 @@ body {
   background-size: cover;
 }
 
+.body{
+	display:block;
+}
+
 .folderContainer {
   font-family: "Montserrat";
   color: lightcyan;
@@ -29,4 +33,22 @@ body {
 .dropdown{
 	margin-right:70%;
 	position:relative;
+}
+
+.control_text{
+	border-style: solid;
+	/* padding: 10px; */
+	/* border-color:  */
+	width:40%;
+	padding:10px;
+	/* display:inline-block; */
+}
+
+.sample_dropdown{
+	/* display:inline-block; */
+	/* float:left; */
+}
+
+.middle_section{
+	margin: 10px;
 }

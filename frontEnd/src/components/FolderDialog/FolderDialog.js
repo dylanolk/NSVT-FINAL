@@ -61,10 +61,11 @@ class FolderDialog extends React.Component {
           <p>Choose the sound file you want to run through the visualizer.</p>
 
           {!this.state.isFilePicked ? (
-            <input type="file" name="file" class="button" onChange={this.changeHandler} />
+            <input type="file" name="file" onChange={this.changeHandler} />
           ) : (
             <Button
               title="Convert File"
+			  class="button"
               handleSubmission={() =>
                 this.postSelectedFile(this.state.selectedFile)
               }

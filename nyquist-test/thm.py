@@ -4,7 +4,7 @@ import numpy as np
 import os
 from scipy import nanmean
 from scipy.io import wavfile
-from scipy.fft import *
+from scipy.fftpack import fft, rfft, rfftfreq
 from scipy.signal import resample
 
 

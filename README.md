@@ -34,7 +34,9 @@ Note that it runs from `localhost:3000`.
 This time locate the nyquist-test folder, which is where the back end runs from. Install the needed Python modules from requirements and run the server. Note that it runs from `localhost:5000`.
 > Tip: It is recommended you use a virtual environment to not pollute your current Python setup. Before you `pip install` do this first:
 > `python3 -m pip install --user virtualenv`
+
 > `python3 -m venv env`
+
 > `source env/bin/activate`
 4. At this point, go to `localhost:3000` to view the page and interact.
 
